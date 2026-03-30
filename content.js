@@ -28,7 +28,7 @@ function injectBadge(watched, total, unwatched) {
   badge.id = "channel-debt-badge";
   badge.textContent = `📺 ${unwatched} unwatched out of last ${total} videos`;
 
-  const attribution = document.querySelector("yt-attribution-view-model");
+  const attribution = document.querySelector("chip-bar-view-model");
   if (attribution) {
     attribution.insertAdjacentElement("afterend", badge);
     log("Badge injected");

@@ -41,16 +41,20 @@ function log(...data) {
   console.log("[ChannelDebt]", ...data);
 }
 
-waitForVideos().then((videos) => {
-  let watched = 0;
+function main() {
+  waitForVideos().then((videos) => {
+    let watched = 0;
 
-  videos.forEach((video) => {
-    const badge = video.querySelector("ytd-thumbnail-overlay-resume-playback-renderer");
-    if (badge) watched++;
+    videos.forEach((video) => {
+      const badge = video.querySelector("ytd-thumbnail-overlay-resume-playback-renderer");
+      if (badge) watched++;
+    });
+
+    const total = videos.length;
+    const unwatched = total - watched;
+
+    injectBadge(watched, total, unwatched);
   });
+}
 
-  const total = videos.length;
-  const unwatched = total - watched;
-
-  injectBadge(watched, total, unwatched);
-});
+main();

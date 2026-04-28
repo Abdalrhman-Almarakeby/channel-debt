@@ -1,15 +1,24 @@
 #channel-debt-badge {
   display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  flex-direction: column;
+  gap: 2px;
   margin-top: 12px;
   margin-left: 8px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   background-color: #272727;
   color: #f1f1f1;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
   font-family: Roboto, Arial, sans-serif;
   width: fit-content;
+}
+
+.channel-debt-stats {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.channel-debt-message {
+  font-size: 12px;
+  font-weight: 400;
+  color: #aaaaaa;
 }

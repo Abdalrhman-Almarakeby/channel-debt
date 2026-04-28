@@ -22,7 +22,8 @@ function waitForVideos() {
 }
 
 function injectBadge(watched, total, unwatched) {
-  if (document.getElementById("channel-debt-badge")) return;
+  // remove any existing badge
+  document.getElementById("channel-debt-badge")?.remove();
 
   const badge = document.createElement("div");
   badge.id = "channel-debt-badge";
@@ -58,3 +59,6 @@ function main() {
 }
 
 main();
+
+// rerun on YouTube's client side navigations
+window.addEventListener("yt-navigate-finish", main);

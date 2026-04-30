@@ -51,19 +51,24 @@ function waitForVideos() {
 }
 
 function injectBadge(watched, total, unwatched) {
+  const existingMessage = document.querySelector(".channel-debt-message")?.textContent;
+
   document.getElementById("channel-debt-badge")?.remove();
 
   log(watched, total, unwatched);
 
   const watchedPercent = total > 0 ? watched / total : 1;
-  const message = getRandomMessage(watchedPercent);
+  const message = existingMessage || getRandomMessage(watchedPercent);
 
   const badge = document.createElement("div");
   badge.id = "channel-debt-badge";
   badge.innerHTML = `
+  <div class="channel-debt-top">
     <span class="channel-debt-stats">📺 ${unwatched} unwatched out of last ${total} videos</span>
-    <span class="channel-debt-message">${message}</span>
-  `;
+    <button id="channel-debt-refresh">↺</button>
+  </div>
+  <span class="channel-debt-message">${message}</span>
+`;
 
   const attribution = document.querySelector("chip-bar-view-model");
   if (attribution) {
@@ -72,6 +77,8 @@ function injectBadge(watched, total, unwatched) {
   } else {
     log("Could not find injection point");
   }
+
+  document.getElementById("channel-debt-refresh").addEventListener("click", main);
 }
 
 function log(...data) {

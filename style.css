@@ -6,7 +6,6 @@
   margin-left: 8px;
   padding: 8px 12px;
   background-color: #272727;
-  color: #f1f1f1;
   border-radius: 8px;
   font-family: Roboto, Arial, sans-serif;
   width: fit-content;
@@ -15,10 +14,10 @@
 .channel-debt-stats {
   font-size: 13px;
   font-weight: 500;
+  color: #f1f1f1;
 }
 
 .channel-debt-message {
   font-size: 12px;
-  font-weight: 400;
   color: #aaaaaa;
 }

@@ -50,6 +50,9 @@ function waitForVideos() {
   });
 }
 
+let currentMessage = null;
+let currentTier = null;
+
 function countVideos(videos) {
   let watched = 0;
 
@@ -71,21 +74,24 @@ function refresh() {
 }
 
 function injectBadge({ watched, total, unwatched }) {
-  const existingMessage = document.querySelector(".channel-debt-message")?.textContent;
-
   document.getElementById("channel-debt-badge")?.remove();
 
   log(watched, total, unwatched);
 
   const watchedPercent = total > 0 ? watched / total : 1;
-  const message = existingMessage || getRandomMessage(watchedPercent);
+  const tier = getTier(watchedPercent);
+
+  if (!currentMessage || currentTier !== tier) {
+    currentMessage = getRandomMessage(watchedPercent);
+    currentTier = tier;
+  }
 
   const badge = document.createElement("div");
   badge.id = "channel-debt-badge";
   badge.innerHTML = `
     <div class="channel-debt-info">
       <span class="channel-debt-stats">📺 ${unwatched} unwatched out of last ${total} videos</span>
-      <span class="channel-debt-message">${message}</span>
+      <span class="channel-debt-message">${currentMessage}</span>
     </div>
     <button id="channel-debt-refresh">🗘</button>
   `;
@@ -117,6 +123,8 @@ main();
 
 // rerun on YouTube's client side navigations
 window.addEventListener("yt-navigate-finish", () => {
+  currentMessage = null;
+  currentTier = null;
   document.getElementById("channel-debt-badge")?.remove();
   main();
 });

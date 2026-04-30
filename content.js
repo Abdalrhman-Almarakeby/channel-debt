@@ -106,4 +106,7 @@ function main() {
 main();
 
 // rerun on YouTube's client side navigations
-window.addEventListener("yt-navigate-finish", main);
+window.addEventListener("yt-navigate-finish", () => {
+  document.getElementById("channel-debt-badge")?.remove();
+  main();
+});

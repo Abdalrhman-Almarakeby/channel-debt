@@ -50,7 +50,27 @@ function waitForVideos() {
   });
 }
 
-function injectBadge(watched, total, unwatched) {
+function countVideos(videos) {
+  let watched = 0;
+
+  videos.forEach((video) => {
+    const badge = video.querySelector("ytd-thumbnail-overlay-resume-playback-renderer");
+    if (badge) watched++;
+  });
+
+  const total = videos.length;
+  const unwatched = total - watched;
+
+  return { watched, total, unwatched };
+}
+
+function refresh() {
+  const videos = document.querySelectorAll("ytd-rich-item-renderer");
+
+  injectBadge(countVideos(videos));
+}
+
+function injectBadge({ watched, total, unwatched }) {
   const existingMessage = document.querySelector(".channel-debt-message")?.textContent;
 
   document.getElementById("channel-debt-badge")?.remove();
@@ -78,7 +98,7 @@ function injectBadge(watched, total, unwatched) {
     log("Could not find injection point");
   }
 
-  document.getElementById("channel-debt-refresh").addEventListener("click", main);
+  document.getElementById("channel-debt-refresh").addEventListener("click", refresh);
 }
 
 function log(...data) {
@@ -89,17 +109,7 @@ function main() {
   if (!location.pathname.match(/\/@.+\/videos/)) return;
 
   waitForVideos().then((videos) => {
-    let watched = 0;
-
-    videos.forEach((video) => {
-      const badge = video.querySelector("ytd-thumbnail-overlay-resume-playback-renderer");
-      if (badge) watched++;
-    });
-
-    const total = videos.length;
-    const unwatched = total - watched;
-
-    injectBadge(watched, total, unwatched);
+    injectBadge(countVideos(videos));
   });
 }
 

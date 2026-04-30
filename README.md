@@ -8,6 +8,15 @@ A Chrome extension that shows how many videos you're behind on for any YouTube c
 
 When you visit a YouTube channel's videos page (e.g. `youtube.com/@Fireship/videos`), it adds a small badge showing how many videos you haven't watched — plus a comment about your commitment level.
 
+
+## Optimization
+
+- **Memory management**: The `MutationObserver` is disconnected after videos are detected, preventing it from running indefinitely and leaking memory.
+
+- **Asset optimization**: Extension icons are compressed to reduce installation size and load times.
+
+- **No dependencies**: The extension has zero external dependencies, not that it needs any, but this helps keep the bundle size as small as possible.
+
 ## Install
 
 1. Go to `chrome://extensions`

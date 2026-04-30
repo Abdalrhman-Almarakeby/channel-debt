@@ -83,12 +83,12 @@ function injectBadge({ watched, total, unwatched }) {
   const badge = document.createElement("div");
   badge.id = "channel-debt-badge";
   badge.innerHTML = `
-  <div class="channel-debt-top">
-    <span class="channel-debt-stats">📺 ${unwatched} unwatched out of last ${total} videos</span>
-    <button id="channel-debt-refresh">↺</button>
-  </div>
-  <span class="channel-debt-message">${message}</span>
-`;
+    <div class="channel-debt-info">
+      <span class="channel-debt-stats">📺 ${unwatched} unwatched out of last ${total} videos</span>
+      <span class="channel-debt-message">${message}</span>
+    </div>
+    <button id="channel-debt-refresh">🗘</button>
+  `;
 
   const attribution = document.querySelector("chip-bar-view-model");
   if (attribution) {

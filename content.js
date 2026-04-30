@@ -1,3 +1,4 @@
+// match `watchedPercent` with appropriate message tier
 function getTier(watchedPercent) {
   switch (true) {
     case watchedPercent <= 0.2:
@@ -18,10 +19,11 @@ function getChannelName() {
   return match ? match[1] : "this channel";
 }
 
-function pickMessage(watchedPercent) {
+function getRandomMessage(watchedPercent) {
   const channel = getChannelName();
   const tier = getTier(watchedPercent);
   const template = tier[Math.floor(Math.random() * tier.length)];
+
   return template.replace(/{channel}/g, channel);
 }
 
@@ -52,8 +54,9 @@ function injectBadge(watched, total, unwatched) {
   document.getElementById("channel-debt-badge")?.remove();
 
   log(watched, total, unwatched);
+
   const watchedPercent = total > 0 ? watched / total : 1;
-  const message = pickMessage(watchedPercent);
+  const message = getRandomMessage(watchedPercent);
 
   const badge = document.createElement("div");
   badge.id = "channel-debt-badge";
